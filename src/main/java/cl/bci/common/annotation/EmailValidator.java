@@ -9,7 +9,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 @Component
-public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
+public class EmailValidator implements ConstraintValidator<EmailPattern, String> {
 	
 	@Value("${app.email.regex}")
 	private String emailPattern;
@@ -18,7 +18,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 	
 	
 	@Override
-	public void initialize(ValidEmail constraintAnnotation) {
+	public void initialize(EmailPattern constraintAnnotation) {
 		pattern = Pattern.compile(emailPattern);
 	}
 	

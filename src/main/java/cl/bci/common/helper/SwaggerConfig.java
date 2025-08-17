@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @Configuration
 @OpenAPIDefinition(
     info = @Info(
-        title = "API para registro de usuarios",
+        title = "API para creacion de usuarios",
         version = "1.0",
         description = "Gestión de autenticación de usuarios con token JWT",
         contact = @Contact(name = "Alvaro Vergara", email = "alvaro.vergara.cl@gmail.com")

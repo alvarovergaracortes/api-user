@@ -14,7 +14,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = EmailValidator.class)
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidEmail {
+public @interface EmailPattern {
 	String message() default "Correo electrónico inválido";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};

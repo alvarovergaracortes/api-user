@@ -1,41 +1,47 @@
-  package cl.bci.user.domain;
+package cl.bci.user.infrastructure.persistence.entity;
 
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class User {
+import org.hibernate.annotations.JdbcTypeCode;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="users")
+public class UserEntity {    
+	@Id
+	@JdbcTypeCode(Types.VARCHAR)
+	@Column(length = 36, nullable = false, unique = true)
 	private UUID id;
+	
 	private String name;
 	private String email;
 	private String password;
-	private List<Phone> phones;
 	private LocalDateTime created;
 	private LocalDateTime modified;
 	private LocalDateTime lastLogin;
-	private String token;
-	private boolean isActive;
+	
 	private String roles;
-
-	public User() {	}
-
-	public User(UUID id, String name, String email, String password, List<Phone> phones, LocalDateTime created,
-			LocalDateTime modified, LocalDateTime lastLogin, String token, boolean isActive, String roles) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.phones = phones;
-		this.created = created;
-		this.modified = modified;
-		this.lastLogin = lastLogin;
-		this.token = token;
-		this.isActive = isActive;
-		this.roles = roles;
-	}
-
+	
+	@Column(length = 1000)
+	private String token;
+	
+	@Column(name = "is_active")
+	private boolean isActive;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PhoneEntity> phones;
+	
 	public UUID getId() {
-			return id;
+		return id;
 	}
 
 	public void setId(UUID id) {
@@ -64,14 +70,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Phone> getPhones() {
-		return phones;
-	}
-
-	public void setPhones(List<Phone> phones) {
-		this.phones = phones;
 	}
 
 	public LocalDateTime getCreated() {
@@ -114,6 +112,14 @@ public class User {
 		this.isActive = isActive;
 	}
 
+	public List<PhoneEntity> getPhones() {
+		return phones;
+	}
+
+	public void setPhones(List<PhoneEntity> phones) {
+		this.phones = phones;
+	}
+
 	public String getRoles() {
 		return roles;
 	}
@@ -124,11 +130,10 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", phones="
-				+ phones + ", created=" + created + ", modified=" + modified + ", lastLogin=" + lastLogin + ", token="
-				+ token + ", isActive=" + isActive + ", roles=" + roles + "]";
+		return "UserEntity [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", created="
+				+ created + ", modified=" + modified + ", lastLogin=" + lastLogin + ", roles=" + roles + ", token="
+				+ token + ", isActive=" + isActive + ", phones=" + phones + "]";
 	}
-	
 	
 	
 }

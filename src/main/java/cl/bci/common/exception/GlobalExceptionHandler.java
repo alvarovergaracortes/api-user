@@ -68,7 +68,7 @@ public class GlobalExceptionHandler{
 	
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex) {
-		return buildErrorResponse("No tienes permisos para acceder a este recurso", HttpStatus.FORBIDDEN);
+		return buildErrorResponse("No tienes acceso a este recurso", HttpStatus.FORBIDDEN);
 	}
 	
 	
